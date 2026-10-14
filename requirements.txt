@@ -3,3 +3,4 @@ transformers
 datasets
 faiss-cpu  # on Colab you can swap in faiss-gpu
 tqdm
+matplotlib
