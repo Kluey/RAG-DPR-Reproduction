@@ -21,6 +21,7 @@ MAX_ANSWER_LEN = 32
 DPR_DIR = "checkpoints/dpr"
 INDEX_PATH = "checkpoints/index/index.faiss"
 RAG_DIR = "checkpoints/rag_{variant}"
+CLOSED_BOOK_DIR = "checkpoints/closed_book"
 
 DPR_BATCH_SIZE = 16
 DPR_EPOCHS = 10

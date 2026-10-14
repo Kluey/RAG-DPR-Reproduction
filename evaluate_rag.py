@@ -5,7 +5,7 @@ import torch
 from transformers import AutoTokenizer, BartForConditionalGeneration
 
 from config import (
-    DEV_FILE, DEVICE, EVAL_BATCH_SIZE, GENERATOR_MODEL, INDEX_PATH, MAX_ANSWER_LEN, MAX_GEN_INPUT_LEN, N_DOCS,
+    CLOSED_BOOK_DIR, DEV_FILE, DEVICE, EVAL_BATCH_SIZE, INDEX_PATH, MAX_ANSWER_LEN, MAX_Q_LEN, N_DOCS,
     NUM_BEAMS, PASSAGES_FILE, RAG_DIR,
 )
 from metrics import exact_match
@@ -31,7 +31,7 @@ def generate_no_retrieval(generator_dir: str, questions: list[str]) -> list[str]
     for start in range(0, len(questions), EVAL_BATCH_SIZE):
         inputs = tokenizer(
             questions[start : start + EVAL_BATCH_SIZE],
-            padding=True, truncation=True, max_length=MAX_GEN_INPUT_LEN, return_tensors="pt",
+            padding=True, truncation=True, max_length=MAX_Q_LEN, return_tensors="pt",
         ).to(DEVICE)
         out = generator.generate(**inputs, num_beams=NUM_BEAMS, max_length=MAX_ANSWER_LEN)
         predictions += [s.strip() for s in tokenizer.batch_decode(out, skip_special_tokens=True)]
@@ -43,7 +43,7 @@ def evaluate(args):
     questions = [ex["question"] for ex in dev]
 
     if args.no_retrieval:
-        predictions = generate_no_retrieval(GENERATOR_MODEL, questions)
+        predictions = generate_no_retrieval(CLOSED_BOOK_DIR, questions)
     else:
         model = RAG.load(RAG_DIR.format(variant=args.variant), Retriever(INDEX_PATH, PASSAGES_FILE), args.n_docs)
         model.to(DEVICE).eval()
@@ -54,7 +54,7 @@ def evaluate(args):
             print(f"  {len(predictions)}/{len(questions)}", flush=True)
 
     em = [exact_match(pred, ex["answers"]) for pred, ex in zip(predictions, dev)]
-    name = "no retrieval" if args.no_retrieval else f"RAG-{args.variant}"
+    name = "closed-book BART" if args.no_retrieval else f"RAG-{args.variant}"
     print(f"{name}: EM = {100 * sum(em) / len(em):.1f}% ({sum(em)}/{len(em)})")
 
     if args.predictions_out:
