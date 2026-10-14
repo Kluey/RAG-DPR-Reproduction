@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from transformers import AutoModel
 
-from config import BERT_MODEL
+from ragdpr.config import BERT_MODEL
 
 class Encoder(nn.Module):
     def __init__(self, model_name: str = BERT_MODEL):

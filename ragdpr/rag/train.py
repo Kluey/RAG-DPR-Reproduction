@@ -4,14 +4,14 @@ import json
 import torch
 from torch.utils.data import DataLoader, Dataset
 
-from config import (
+from ragdpr.config import (
     DEVICE, DPR_DIR, GENERATOR_MODEL, INDEX_PATH, N_DOCS, PASSAGES_FILE, RAG_BATCH_SIZE, RAG_DIR, RAG_EPOCHS, RAG_LR,
     TRAIN_FILE,
 )
-from models.rag import RAG
-from models.rag_seq import rag_sequence_loss
-from models.rag_token import rag_token_loss
-from retrieval.dpr.index import Retriever
+from ragdpr.rag.model import RAG
+from ragdpr.rag.rag_sequence import rag_sequence_loss
+from ragdpr.rag.rag_token import rag_token_loss
+from ragdpr.dpr.index import Retriever
 
 LOSSES = {"seq": rag_sequence_loss, "token": rag_token_loss}
 

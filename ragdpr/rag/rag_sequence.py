@@ -1,7 +1,7 @@
 import torch
 
-from config import MAX_ANSWER_LEN, NUM_BEAMS
-from models.rag import RAG
+from ragdpr.config import MAX_ANSWER_LEN, NUM_BEAMS
+from ragdpr.rag.model import RAG
 
 
 def rag_sequence_loss(doc_scores: torch.Tensor, logprobs: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:

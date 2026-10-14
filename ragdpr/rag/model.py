@@ -5,9 +5,9 @@ import torch.nn as nn
 from transformers import AutoTokenizer, BartForConditionalGeneration
 from transformers.models.bart.modeling_bart import shift_tokens_right
 
-from config import BERT_MODEL, GENERATOR_MODEL, MAX_ANSWER_LEN, MAX_GEN_INPUT_LEN, MAX_Q_LEN, N_DOCS
-from retrieval.dpr.index import Retriever
-from retrieval.dpr.model import Encoder
+from ragdpr.config import BERT_MODEL, GENERATOR_MODEL, MAX_ANSWER_LEN, MAX_GEN_INPUT_LEN, MAX_Q_LEN, N_DOCS
+from ragdpr.dpr.index import Retriever
+from ragdpr.dpr.model import Encoder
 
 
 class RAG(nn.Module):

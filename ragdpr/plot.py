@@ -4,8 +4,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 
-from config import N_DOCS, RESULTS_FILE
-from results import load_results
+from ragdpr.config import N_DOCS, RESULTS_FILE
+from ragdpr.results import load_results
 
 EM_LABELS = {"closed_book": "Closed-book BART", "rag_token": "RAG-Token", "rag_seq": "RAG-Sequence"}
 
@@ -112,11 +112,11 @@ def main():
     if results.get("retrieval"):
         plot_retrieval(left, results["retrieval"])
     else:
-        mark_missing(left, "DPR retrieval accuracy", "python -m retrieval.dpr.index --eval")
+        mark_missing(left, "DPR retrieval accuracy", "python -m ragdpr.dpr.index --eval")
     if results.get("exact_match"):
         plot_exact_match(right, results["exact_match"])
     else:
-        mark_missing(right, "Answer exact match", "python evaluate_rag.py")
+        mark_missing(right, "Answer exact match", "python -m ragdpr.rag.evaluate")
 
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(args.out, dpi=200, bbox_inches="tight", facecolor=SURFACE)

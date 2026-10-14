@@ -5,11 +5,11 @@ import torch
 from torch.utils.data import DataLoader, Dataset
 from transformers import AutoTokenizer, get_linear_schedule_with_warmup
 
-from config import (
+from ragdpr.config import (
     BERT_MODEL, DEVICE, DPR_BATCH_SIZE, DPR_DIR, DPR_EPOCHS, DPR_LR, DPR_MAX_GRAD_NORM, DPR_WARMUP_STEPS,
     MAX_P_LEN, MAX_Q_LEN, TRAIN_FILE,
 )
-from retrieval.dpr.model import BiEncoder
+from ragdpr.dpr.model import BiEncoder
 
 
 class DPRDataset(Dataset):

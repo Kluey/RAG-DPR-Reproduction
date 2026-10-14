@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from config import RESULTS_FILE
+from ragdpr.config import RESULTS_FILE
 
 
 def load_results(path: str = RESULTS_FILE) -> dict:

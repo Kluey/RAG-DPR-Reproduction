@@ -7,11 +7,11 @@ import numpy as np
 import torch
 from transformers import AutoTokenizer
 
-from config import DEV_FILE, DEVICE, DPR_DIR, ENCODE_BATCH_SIZE, INDEX_PATH, MAX_P_LEN, MAX_Q_LEN, PASSAGES_FILE
-from metrics import has_answer
-from results import save_result
-from retrieval.dpr.model import Encoder
-from retrieval.dpr.train import format_passage
+from ragdpr.config import DEV_FILE, DEVICE, DPR_DIR, ENCODE_BATCH_SIZE, INDEX_PATH, MAX_P_LEN, MAX_Q_LEN, PASSAGES_FILE
+from ragdpr.metrics import has_answer
+from ragdpr.results import save_result
+from ragdpr.dpr.model import Encoder
+from ragdpr.dpr.train import format_passage
 
 
 def load_passages(path: str) -> list[dict]:

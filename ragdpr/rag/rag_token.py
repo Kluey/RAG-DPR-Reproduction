@@ -1,7 +1,7 @@
 import torch
 
-from config import MAX_ANSWER_LEN
-from models.rag import RAG
+from ragdpr.config import MAX_ANSWER_LEN
+from ragdpr.rag.model import RAG
 
 
 def rag_token_loss(doc_scores: torch.Tensor, logprobs: torch.Tensor, mask: torch.Tensor) -> torch.Tensor:

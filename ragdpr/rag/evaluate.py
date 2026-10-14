@@ -4,16 +4,16 @@ import json
 import torch
 from transformers import AutoTokenizer, BartForConditionalGeneration
 
-from config import (
+from ragdpr.config import (
     CLOSED_BOOK_DIR, DEV_FILE, DEVICE, EVAL_BATCH_SIZE, INDEX_PATH, MAX_ANSWER_LEN, MAX_Q_LEN, N_DOCS,
     NUM_BEAMS, PASSAGES_FILE, RAG_DIR,
 )
-from metrics import exact_match
-from results import save_result
-from models.rag import RAG
-from models.rag_seq import rag_sequence_generate
-from models.rag_token import rag_token_generate
-from retrieval.dpr.index import Retriever
+from ragdpr.metrics import exact_match
+from ragdpr.results import save_result
+from ragdpr.rag.model import RAG
+from ragdpr.rag.rag_sequence import rag_sequence_generate
+from ragdpr.rag.rag_token import rag_token_generate
+from ragdpr.dpr.index import Retriever
 
 GENERATORS = {"seq": rag_sequence_generate, "token": rag_token_generate}
 

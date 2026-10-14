@@ -4,7 +4,7 @@ from pathlib import Path
 
 from datasets import load_dataset
 
-from config import DATA_DIR, DATASET_NAME, N_DEV, N_HARD_NEGATIVES, N_TRAIN
+from ragdpr.config import DATA_DIR, DATASET_NAME, N_DEV, N_HARD_NEGATIVES, N_TRAIN
 
 
 def convert_example(row: dict, n_hard_negatives: int) -> dict:

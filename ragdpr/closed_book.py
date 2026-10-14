@@ -5,11 +5,11 @@ import torch
 from torch.utils.data import DataLoader
 from transformers import AutoTokenizer, BartForConditionalGeneration
 
-from config import (
+from ragdpr.config import (
     CLOSED_BOOK_DIR, DEVICE, GENERATOR_MODEL, MAX_ANSWER_LEN, MAX_Q_LEN, RAG_BATCH_SIZE, RAG_EPOCHS, RAG_LR,
     TRAIN_FILE,
 )
-from train_rag import QADataset, collate
+from ragdpr.rag.train import QADataset, collate
 
 
 def train(args):
