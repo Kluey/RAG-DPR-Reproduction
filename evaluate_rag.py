@@ -9,6 +9,7 @@ from config import (
     NUM_BEAMS, PASSAGES_FILE, RAG_DIR,
 )
 from metrics import exact_match
+from results import save_result
 from models.rag import RAG
 from models.rag_seq import rag_sequence_generate
 from models.rag_token import rag_token_generate
@@ -55,7 +56,10 @@ def evaluate(args):
 
     em = [exact_match(pred, ex["answers"]) for pred, ex in zip(predictions, dev)]
     name = "closed-book BART" if args.no_retrieval else f"RAG-{args.variant}"
-    print(f"{name}: EM = {100 * sum(em) / len(em):.1f}% ({sum(em)}/{len(em)})")
+    score = round(100 * sum(em) / len(em), 1)
+    print(f"{name}: EM = {score:.1f}% ({sum(em)}/{len(em)})")
+    key = "closed_book" if args.no_retrieval else f"rag_{args.variant}"
+    save_result(["exact_match", key], {"n": len(em), "em": score})
 
     if args.predictions_out:
         records = [

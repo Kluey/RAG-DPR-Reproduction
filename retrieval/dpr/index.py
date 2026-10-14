@@ -9,6 +9,7 @@ from transformers import AutoTokenizer
 
 from config import DEV_FILE, DEVICE, DPR_DIR, ENCODE_BATCH_SIZE, INDEX_PATH, MAX_P_LEN, MAX_Q_LEN, PASSAGES_FILE
 from metrics import has_answer
+from results import save_result
 from retrieval.dpr.model import Encoder
 from retrieval.dpr.train import format_passage
 
@@ -106,8 +107,11 @@ def evaluate_retrieval(batch_size: int, ks=(1, 5, 20, 100)):
         hit_rank.append(ranks[0] if ranks else float("inf"))
 
     hit_rank = np.array(hit_rank)
+    top_k = {}
     for k in ks:
-        print(f"top-{k} accuracy: {100 * np.mean(hit_rank < k):.1f}%")
+        top_k[str(k)] = round(100 * float(np.mean(hit_rank < k)), 1)
+        print(f"top-{k} accuracy: {top_k[str(k)]:.1f}%")
+    save_result(["retrieval"], {"n": len(dev), "top_k": top_k})
 
 
 def main():

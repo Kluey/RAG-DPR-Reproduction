@@ -22,6 +22,7 @@ DPR_DIR = "checkpoints/dpr"
 INDEX_PATH = "checkpoints/index/index.faiss"
 RAG_DIR = "checkpoints/rag_{variant}"
 CLOSED_BOOK_DIR = "checkpoints/closed_book"
+RESULTS_FILE = "results/results.json"
 
 DPR_BATCH_SIZE = 16
 DPR_EPOCHS = 10
